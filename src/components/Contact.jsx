@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import emailIcon from '../assets/emailIcon.svg';
 
 const Contact = () => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
+  const [error, setError] = useState(false); // Neuer Zustand für Fehlerbehandlung
 
   const validateEmail = (email) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -17,55 +17,40 @@ const Contact = () => {
 
     if (validateEmail(currentEmail)) {
       setEmailValid(true);
+      setError(false); // Fehlerzustand zurücksetzen, wenn die E-Mail jetzt gültig ist
     } else {
       setEmailValid(false);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Verhindern Sie das Standardverhalten des Formulars
     if (emailValid) {
-      console.log(email); // Simulating email sending
-      setEmailSent(true);
-      setEmail(''); // Clearing the input field after sending
-      setEmailValid(false); // Reset the validation state
+      // Hier könnten Sie den API-Aufruf einfügen, um die E-Mail zu senden, z.B.:
+      try {
+        // Simulieren Sie einen erfolgreichen API-Aufruf oder verwenden Sie Ihre tatsächliche Sendefunktion
+        // const response = await sendEmailFunction({ email });
+
+        setEmailSent(true);
+        setEmail(''); // Leert das E-Mail-Feld
+        setEmailValid(false); // Setzt den Validierungsstatus zurück
+      } catch (error) {
+        setError(true); // Setzt den Fehlerzustand, falls beim Senden der E-Mail ein Fehler auftritt
+        console.error("Error sending email:", error);
+      }
+    } else {
+      setError(true); // Wenn die E-Mail ungültig ist, setzen Sie einen Fehlerzustand
     }
   };
 
-  const createEmailTemplate = (customerEmail) => {
-    return `
-      Sehr geehrter Herr/Frau ${customerEmail},
-  
-      Herzlichen Dank für Ihr Interesse an unseren Heilungsangeboten.
-  
-      Es freut uns, Ihnen folgende Pakete für den Beginn Ihrer Heilungsreise anbieten zu dürfen:
-  
-      1. Basis-Paket: Unsere Ganzkörperreinigung, eine 30-minütige Sitzung, die für einen Preis von 49€ verfügbar ist.
-      
-      2. Premium-Paket: Dies beinhaltet unsere Ganzkörperreinigung sowie eine energetische Heilbehandlung. Dieses umfassende Angebot steht Ihnen für 79€ zur Verfügung.
-  
-      Bitte senden Sie uns Ihre endgültige Auswahl an nelli@naturenergieheilung.com . Nach Erhalt Ihrer Auswahl werden wir Ihnen unsere Bankverbindung für die Zahlung zukommen lassen sowie drei Terminvorschläge unterbreiten, aus denen Sie bequem wählen können.
-  
-      Wir freuen uns darauf, Sie auf Ihrem Weg der Heilung zu begleiten.
-  
-      Mit freundlichen Grüßen,
-  
-      Nelli Schorn
-      Natur und Energieheilung
-    `;
-  };
-  
-  
-
+  // Form input classes
   const inputClassName = emailValid ? 'border-green-500' : 'border-red-500';
 
   return (
-    <div className="contact-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '50px', background: '#f0f0f0', height: '10px' }}>
+    <div className="contact-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '50px', background: '#f0f0f0' }}>
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <img src={emailIcon} alt="Email" width="32" style={{ marginRight: '10px' }} />
-
         {emailSent ? (
-          <div style={{color: '#28a745', fontWeight: 'bold',fontSize: '20px' }}>E-Mail erfolgreich gesendet!</div>
+          <div style={{color: '#28a745', fontWeight: 'bold', fontSize: '20px' }}>E-Mail erfolgreich gesendet!</div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center' }}>
             <input
@@ -74,19 +59,23 @@ const Contact = () => {
               onChange={handleEmailChange}
               placeholder="Ihre E-Mail-Adresse"
               className={`form-input text-lg rounded p-2 ${inputClassName}`}
-              style={{ border: '2px solid', marginRight: '10px' }} // The border color is dynamically set by inputClassName
+              style={{ border: '2px solid', marginRight: '10px' }}
               required
-              disabled={emailSent}
             />
             <button
               type="submit"
-              className="btn btn-primary text-lg mr-9"
-              disabled={emailSent || !emailValid}
+              className="btn btn-primary text-lg"
               style={{ padding: '10px 20px', cursor: 'pointer', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', textTransform: 'uppercase' }}
+              disabled={!emailValid} // Button ist deaktiviert, wenn die E-Mail nicht gültig ist
             >
               Senden
             </button>
           </form>
+        )}
+        {error && ( // Wenn ein Fehler auftritt, zeigen Sie eine Fehlermeldung an
+          <div style={{color: '#dc3545', fontWeight: 'bold', fontSize: '20px', marginTop: '10px' }}>
+            Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.
+          </div>
         )}
       </div>
     </div>
@@ -94,5 +83,8 @@ const Contact = () => {
 };
 
 export default Contact;
+
+
+
 
 

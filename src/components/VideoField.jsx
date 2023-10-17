@@ -15,7 +15,7 @@ const VideoField = () => {
       <div className="video-container relative w-full h-64 rounded-lg overflow-hidden mb-2 bg-fuchsia-300"> {/* Added rounded-lg for more pronounced rounding */}
         <iframe 
           className="absolute top-0 left-0 w-full h-full rounded-lg" 
-          src="https://www.youtube.com/embed/eWLVBP3VrO4" 
+          src="https://www.youtube.com/embed/d_XDFtFVL4o" 
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
           allowFullScreen
