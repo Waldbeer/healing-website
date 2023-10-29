@@ -20,10 +20,10 @@ const Footer = () => {
       <div className="flex justify-between items-center px-8 text-lg">
         {/* Center Section */}
         <div className="flex flex-grow justify-center items-center space-x-4">
-          <a href="/path-to-your/agb.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 hover:opacity-75">
+          {/* <a href="/path-to-your/agb.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 hover:opacity-75">
             <img src={AGBIcon} alt="AGB" className="w-6 h-6"/>
             <span>AGB</span>
-          </a>
+  </a> */}
           <div className="bg-[#F0F1F2] w-0.5 h-[fit-content] rounded-full my-1"></div> {/* Vertical Divider */}
           <a href="#angebot" className="flex items-center space-x-2 hover:opacity-75">
             <img src={OfferIcon} alt="Angebot" className="w-6 h-6"/>

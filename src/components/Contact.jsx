@@ -24,24 +24,41 @@ const Contact = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Verhindern Sie das Standardverhalten des Formulars
+    e.preventDefault(); // Prevents the default behavior of the form
+  
     if (emailValid) {
-      // Hier könnten Sie den API-Aufruf einfügen, um die E-Mail zu senden, z.B.:
       try {
-        // Simulieren Sie einen erfolgreichen API-Aufruf oder verwenden Sie Ihre tatsächliche Sendefunktion
-        // const response = await sendEmailFunction({ email });
-
-        setEmailSent(true);
-        setEmail(''); // Leert das E-Mail-Feld
-        setEmailValid(false); // Setzt den Validierungsstatus zurück
+        // Prepare the data to send
+        const emailData = { email }; // assuming server accepts { email: string }
+  
+        // Send a POST request to your server endpoint responsible for sending the email
+        const response = await fetch('https://natur-energieheilung.com/api/sendemail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(emailData), // body data type must match "Content-Type" header
+        });
+  
+        const responseData = await response.json(); // Assuming server responds with json
+  
+        if (response.ok) {
+          setEmailSent(true);
+          setEmail(''); // Clears the email field
+          setEmailValid(false); // Resets the validation status
+        } else {
+          setError(true); // Sets error state if there's a problem with the operation
+          console.error('Server responded with an error', responseData);
+        }
       } catch (error) {
-        setError(true); // Setzt den Fehlerzustand, falls beim Senden der E-Mail ein Fehler auftritt
+        setError(true); // Sets the error state if sending the email fails
         console.error("Error sending email:", error);
       }
     } else {
-      setError(true); // Wenn die E-Mail ungültig ist, setzen Sie einen Fehlerzustand
+      setError(true); // If the email is invalid, set an error state
     }
   };
+  
 
   // Form input classes
   const inputClassName = emailValid ? 'border-green-500' : 'border-red-500';
@@ -74,7 +91,7 @@ const Contact = () => {
         )}
         {error && ( // Wenn ein Fehler auftritt, zeigen Sie eine Fehlermeldung an
           <div style={{color: '#dc3545', fontWeight: 'bold', fontSize: '20px', marginTop: '10px' }}>
-            Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.
+            Fehler beim Senden der Email. Bitte versuchen Sie es erneut.
           </div>
         )}
       </div>
