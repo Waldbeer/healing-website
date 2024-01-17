@@ -29,4 +29,3 @@ const VideoField = () => {
 export default VideoField;
 
 
-// https://github.com/Waldbeer/healing-website.git

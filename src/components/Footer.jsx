@@ -11,7 +11,7 @@ const Footer = () => {
       {/* YouTube Icon */}
       <div className="flex flex-col items-center justify-center mb-4">
         <h2 className="text-lg sm:text-xl md:text-2xl mb-2 font-bold text-center">Mein YouTube Kanal</h2>
-        <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.youtube.com/@naturundenergie/" target="_blank" rel="noopener noreferrer">
           <img src={YoutubeIcon} alt="YouTube" className="w-8 h-8 mr-2 hover:opacity-75"/>
         </a>
       </div>
