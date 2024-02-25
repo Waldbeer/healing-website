@@ -35,7 +35,7 @@ const Contact = () => {
         formData.append('_subject', 'Neue Kontaktanfrage');
         formData.append('message', `Ein potentieller Kunde mit der E-Mail-Adresse ${email} wartet auf ein zeitnahes Angebot.`);
 
-        const response = await fetch('https://formsubmit.co/ne7la@t-online.de', {
+        const response = await fetch('https://formsubmit.co/emkoemail@gmail.com', {
           method: 'POST',
           body: formData,
         });
